@@ -8,7 +8,7 @@ namespace ZBot
 {
     public class RiotApiHandler
     {
-        private HttpRequestMessage BuildRequestWithHeaders(string url)
+        private HttpRequestMessage CreateRequestWithHeaders(string url)
         {
             HttpRequestMessage request = new HttpRequestMessage
             {
@@ -16,7 +16,7 @@ namespace ZBot
                 RequestUri = new Uri(url)
             };
 
-            string token = File.ReadAllText(@"C:\Users\Zebbe\source\RiotToken.txt");
+            string token = File.ReadAllText(@"C:\Users\Zebbe\source\RiotToken.txt"); //Text file with my riot token
 
             request.Headers.Add("X-Riot-Token", token);
 
@@ -25,7 +25,7 @@ namespace ZBot
 
         public async Task<string> ApiClient(string url)
         {
-            var request = BuildRequestWithHeaders(url);
+            var request = CreateRequestWithHeaders(url);
 
             var client = new HttpClient();
 

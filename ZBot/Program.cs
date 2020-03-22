@@ -17,8 +17,7 @@ namespace ZBot
         private CommandService _commands;
         private IServiceProvider _services;
 
-        //Comments
-
+        
         public async Task RunBotAsync()
         {
             _client = new DiscordSocketClient();
@@ -30,9 +29,9 @@ namespace ZBot
                 .BuildServiceProvider();
 
 
-            string token = File.ReadAllText(@"C:\Users\Zebbe\source\ZBotToken.txt");
+            string token = File.ReadAllText(@"C:\Users\Zebbe\source\ZBotToken.txt");  //Text file with my discord token
 
-            _client.Log += _client_Log;
+            _client.Log += Client_Log;
 
 
 
@@ -48,7 +47,7 @@ namespace ZBot
 
         }
 
-        private Task _client_Log(LogMessage arg)
+        private Task Client_Log(LogMessage arg)
         {
             Console.WriteLine(arg);
             return Task.CompletedTask;

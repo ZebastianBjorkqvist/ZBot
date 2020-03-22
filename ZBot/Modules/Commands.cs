@@ -60,19 +60,19 @@ namespace ZBot
         [Summary("Gets summoner level and rank.")]
         public async Task GetSumLvlAndRank([Remainder] [Summary("Summoner name")] string name)
         {
-            var escapedName = Uri.EscapeUriString(name);
-            string tier = "";
-            string rank = "";
+            var escapedName = Uri.EscapeUriString(name); //Need to escape incase it has a space in the name
+            string tier = "";                               //Tier is Bronze, Silver, Gold etc.
+            string rank = "";                               //Rank is I, II, V etc.
 
-            string urlSummoner = $"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{escapedName}";
+            string urlSummoner = $"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{escapedName}"; //Url to get summoner info with summonername
 
             var summoner = JsonConvert.DeserializeObject<RiotApiResponseSummoner>(await Api.ApiClient(urlSummoner));
 
-            string urlRank = $"https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/{summoner.Id}";
+            string urlRank = $"https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/{summoner.Id}"; //Url to get ranked information of summoner. It only accepts summoner id
 
             var rankJson = await Api.ApiClient(urlRank);
 
-            if (rankJson.Count() < 5)
+            if (rankJson.Count() < 5) //If it returns empty the summoner doesnt have a rank. 5 is just a random low number i selected 
             {
                 await ReplyAsync($"{summoner.Name} is level {summoner.SummonerLevel} but has no rank");
                 return;
@@ -80,7 +80,10 @@ namespace ZBot
 
             var ranked = JsonConvert.DeserializeObject<RiotApiResponseRank[]>(rankJson);
 
-            if ((ranked.FirstOrDefault(x => x.QueueType == QueueType.Solo5v5) is RiotApiResponseRank summonerRanked))
+
+            /*Because tha api is random in wich ranked que json (Flex or Solo) is sent first
+             * we need to find the one where queueType is solo*/
+            if ((ranked.FirstOrDefault(x => x.QueueType == QueueType.Solo5v5) is RiotApiResponseRank summonerRanked)) 
             {
                 tier = summonerRanked.Tier;
                 rank = summonerRanked.Rank;
