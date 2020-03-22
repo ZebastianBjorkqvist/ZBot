@@ -1,13 +1,20 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-
 
 namespace ZBot
 {
     public class RiotApiHandler
     {
+        private readonly IHttpClientFactory _clientFactory;
+
+        public RiotApiHandler(IHttpClientFactory clientFactory)
+        {
+            _clientFactory = clientFactory;
+        }
+
         private HttpRequestMessage CreateRequestWithHeaders(string url)
         {
             HttpRequestMessage request = new HttpRequestMessage
@@ -23,18 +30,17 @@ namespace ZBot
             return request;
         }
 
-        public async Task<string> ApiClient(string url)
+        public async Task<T> ApiRequest<T>(string url)
         {
             var request = CreateRequestWithHeaders(url);
-
-            var client = new HttpClient();
-
+            
+            var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
+           
 
-            var apiResponseString = await response.Content.ReadAsStringAsync();
-
-            return apiResponseString;
-
+            string apiResponseString = await response.Content.ReadAsStringAsync();
+           
+            return JsonConvert.DeserializeObject<T>(apiResponseString);
         }
     }
 }
