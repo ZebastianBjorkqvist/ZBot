@@ -37,7 +37,6 @@ namespace ZBot
             var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
            
-
             string apiResponseString = await response.Content.ReadAsStringAsync();
            
             return JsonConvert.DeserializeObject<T>(apiResponseString);

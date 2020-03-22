@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 namespace ZBot.Modules
 {
     [Group("help")]
+    [Summary("Helps")]
     public class HelpModule : ModuleBase
     {
         [Command]
         [Summary("Helps")]
         public async Task Help()
         {
-
-
             EmbedBuilder embedBuilder = new EmbedBuilder();
 
             foreach (CommandInfo command in Program._commands.Commands)
@@ -26,9 +25,7 @@ namespace ZBot.Modules
 
                     embedBuilder.AddField(command.Name, embedFieldText);
                 }
-
             }
-
             await ReplyAsync("Here's a list of commands and their description: ", false, embedBuilder.Build());
         }
 
@@ -39,22 +36,28 @@ namespace ZBot.Modules
 
             foreach (CommandInfo cmd in Program._commands.Commands)
             {
-                if (cmd.Name == command)
+                if (cmd.Name.ToLower() == command.ToLower())
                 {
                     var parameters = new StringBuilder();
 
                     foreach(ParameterInfo p in cmd.Parameters){
-                        parameters.Append(p + " ");
+                        parameters.Append(p);
                     }
+
                     string embedFieldText = cmd.Summary ?? "No description available\n";
-                    try { embedFieldText += $"{Environment.NewLine} Parameters: {parameters}"; }
-                    catch { embedFieldText += Environment.NewLine + "No parameters available"; };
+
+                    embedFieldText += Environment.NewLine;
+
+                    if(parameters.Length < 1)
+                    {
+                        embedFieldText += "No parameters available\n";
+                    }
+                    embedFieldText += parameters.ToString();
+
                     embedBuilder.AddField(cmd.Name, embedFieldText);
                     }
-
             }
-
-            await ReplyAsync("Here's the command, it's parameters and  description: ", false, embedBuilder.Build());
+            await ReplyAsync("Here's the command, it's parameters and description: ", false, embedBuilder.Build());
         }
     }
 }

@@ -14,12 +14,9 @@ namespace ZBot
         [Summary("Pings the bot")]
         public async Task Ping() => await ReplyAsync("Pong");
 
-
         [Command("say")]
         [Summary("Echoes a message")]
-        public Task SayAsync([Remainder] [Summary("The text to echo")] string echo) => ReplyAsync(echo);
-
-
+        public Task SayAsync([Remainder] [Summary("The text to echo")] string message) => ReplyAsync(message);
     }
 }
 
