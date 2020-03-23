@@ -11,7 +11,6 @@ namespace ZBot.Modules
     [Summary("Helps")]
     public class HelpModule : ModuleBase
     {
-        [Command]
         [Summary("Helps")]
         public async Task Help()
         {
@@ -19,7 +18,7 @@ namespace ZBot.Modules
 
             foreach (CommandInfo command in Program._commands.Commands)
             {
-                if (command.Name != "HelpSpecific")
+                if (command.Name != "HelpSpecific" && command.Name != "CreateAndAssignRole")
                 {
                     string embedFieldText = command.Summary ?? "No description available\n";
 
@@ -38,9 +37,11 @@ namespace ZBot.Modules
             {
                 if (cmd.Name.ToLower() == command.ToLower())
                 {
+
                     var parameters = new StringBuilder();
 
-                    foreach(ParameterInfo p in cmd.Parameters){
+                    foreach (ParameterInfo p in cmd.Parameters)
+                    {
                         parameters.Append(p);
                     }
 
@@ -48,16 +49,23 @@ namespace ZBot.Modules
 
                     embedFieldText += Environment.NewLine;
 
-                    if(parameters.Length < 1)
+                    if (parameters.Length < 1)
                     {
                         embedFieldText += "No parameters available\n";
                     }
                     embedFieldText += parameters.ToString();
 
                     embedBuilder.AddField(cmd.Name, embedFieldText);
-                    }
+                }
+                
+                
             }
-            await ReplyAsync("Here's the command, it's parameters and description: ", false, embedBuilder.Build());
+            if(embedBuilder.Length < 2)
+            {
+                await ReplyAsync($"There is no command called {command}");
+                return;
+            }
+            await ReplyAsync("Here's the command, it's description and parameters: ", false, embedBuilder.Build());
         }
     }
 }
