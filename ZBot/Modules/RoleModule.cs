@@ -13,7 +13,8 @@ namespace ZBot.Modules
     [Summary("Creates roles")]
     public class RoleModule : ModuleBase
     {
-        [Summary("Gives the user if specified otherwise the user invoking the command a role with specified name with a color in HEX or RGB if specified otherwise Light Grey")]
+        [Command]
+        [Summary("Gives the user a role with specified name and color Light Grey")]
         public async Task Role(string roleName)
         {
             IGuild guild = Context.Guild;
@@ -33,6 +34,7 @@ namespace ZBot.Modules
         }
 
         [Command]
+        [Summary("Gives the user a role with specified name and specifed color in HEX(FFFFFF) or RGB(255,255,255)")]
         public async Task CreateAndAssignRole(string roleName, string roleColor)
         {
             IGuild guild = Context.Guild;
@@ -54,6 +56,7 @@ namespace ZBot.Modules
         }
 
         [Command]
+        [Summary("Gives the user specified a role with specified name and specifed color in HEX(FFFFFF) or RGB(255,255,255)")]
         public async Task CreateAndAssignRole(IUser userName, string roleName, string roleColor)
         {
             IGuild guild = Context.Guild;

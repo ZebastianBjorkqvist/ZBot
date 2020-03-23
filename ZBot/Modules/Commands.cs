@@ -21,8 +21,9 @@ namespace ZBot
         public async Task UserInfoAsync(IUser user = null)
         {
             user = user ?? Context.User;
-            
-            await ReplyAsync(user.ToString() + Environment.NewLine + user.CreatedAt);
+
+            await ReplyAsync(user.Username + Environment.NewLine + user.CreatedAt + Environment.NewLine + user.Status + Environment.NewLine + user.Activity);
+
         }
 
         [Command("cat")]
@@ -37,13 +38,13 @@ namespace ZBot
         }
 
         [Command("test")]
-        [Summary("Returns username and creation date")]
+        [Summary("nothing")]
         public async Task Test(IUser user = null)
         {
             user = user ?? Context.User;
             
-            
-            await ReplyAsync(user.Username + Environment.NewLine + user.CreatedAt + Environment.NewLine + user.Status + Environment.NewLine + user.Activity);
+            await ReplyAsync("nope");
+
         }
     }
 }
