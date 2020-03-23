@@ -23,7 +23,11 @@ namespace ZBot.Modules
         [Command]
         public async Task Help()
         {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
+            EmbedBuilder embedBuilder = new EmbedBuilder()
+            {
+                Color = new Color(114, 137, 218),
+                Description = "Here's a list of commands and their description"
+            };
 
             foreach (CommandInfo command in _service.Commands)
             {
@@ -34,7 +38,7 @@ namespace ZBot.Modules
                     embedBuilder.AddField(command.Name, embedFieldText);
                 }
             }
-            await ReplyAsync("Here's a list of commands and their description: ", false, embedBuilder.Build());
+            await ReplyAsync("", false, embedBuilder.Build());
         }
 
         [Command]
@@ -66,47 +70,7 @@ namespace ZBot.Modules
                     x.IsInline = false;
                 });
             }
-
             await ReplyAsync("", false, builder.Build());
         }
-        
-        /*
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-
-            foreach (CommandInfo cmd in Program._commands.Commands)
-            {
-                if (cmd.Name.ToLower() == command.ToLower())
-                {
-
-                    var parameters = new StringBuilder();
-
-                    foreach (ParameterInfo p in cmd.Parameters)
-                    {
-                        parameters.Append(p);
-                    }
-
-                    string embedFieldText = cmd.Summary ?? "No description available\n";
-
-                    embedFieldText += Environment.NewLine;
-
-                    if (parameters.Length < 1)
-                    {
-                        embedFieldText += "No parameters available\n";
-                    }
-                    embedFieldText += parameters.ToString();
-
-                    embedBuilder.AddField(cmd.Name, embedFieldText);
-                }
-                
-                
-            }
-            
-            if (embedBuilder.Length < 2)
-            {
-                await ReplyAsync($"There is no command called {command}");
-                return;
-            }
-            await ReplyAsync("Here's the command, it's description and parameters: ", false, embedBuilder.Build());
-        }*/
     }
 }

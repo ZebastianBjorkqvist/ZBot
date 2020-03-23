@@ -27,7 +27,7 @@ namespace ZBot
 
             _client.Log += Client_Log;
 
-            await _client.SetGameAsync("Botting");
+            await _client.SetGameAsync("Botting | !help");
 
             await RegisterCommandsAsync();
 

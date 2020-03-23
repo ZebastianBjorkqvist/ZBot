@@ -15,15 +15,14 @@ namespace ZBot.Modules
     {
         [Command]
         [Summary("Gives the user a role with specified name and color Light Grey")]
-        public async Task Role(string roleName)
+        public async Task Role([Remainder]string roleName)
         {
             IGuild guild = Context.Guild;
-
             var role = await guild.CreateRoleAsync(roleName);
 
             await role.ModifyAsync(x =>
             {
-                x.Color = new Color(Color.LighterGrey.RawValue);
+                x.Color = Color.LighterGrey;
                 x.Hoist = true;
                 x.Mentionable = true;
             });
@@ -38,9 +37,7 @@ namespace ZBot.Modules
         public async Task CreateAndAssignRole(string roleName, string roleColor)
         {
             IGuild guild = Context.Guild;
-            
             var role = await guild.CreateRoleAsync(roleName);
-
             int[] rgbResult = HexToRGB(roleColor);
 
             await role.ModifyAsync(x =>
@@ -60,11 +57,8 @@ namespace ZBot.Modules
         public async Task CreateAndAssignRole(IUser userName, string roleName, string roleColor)
         {
             IGuild guild = Context.Guild;
-
             var user = userName ?? Context.User;
-
             var role = await guild.CreateRoleAsync(roleName);
-
             int[] rgbResult = HexToRGB(roleColor);
 
             await role.ModifyAsync(x =>
@@ -73,7 +67,6 @@ namespace ZBot.Modules
                 x.Hoist = true;
                 x.Mentionable = true;
             });
-
 
             await (user as IGuildUser).AddRoleAsync(role);
 
