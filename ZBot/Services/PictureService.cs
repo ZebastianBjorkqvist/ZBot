@@ -1,9 +1,8 @@
-﻿
-using System.IO;
+﻿using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace _02_commands_framework.Services
+namespace ZBot
 {
     public static class PictureService
     {

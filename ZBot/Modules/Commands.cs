@@ -1,13 +1,8 @@
-﻿using _02_commands_framework.Services;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-
 
 namespace ZBot
 {
