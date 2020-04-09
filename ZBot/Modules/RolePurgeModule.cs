@@ -24,9 +24,10 @@ namespace ZBot.Modules
 
             foreach (SocketRole role in Context.Guild.Roles)
             {
-                if(role.Members.Count() < 1)
+                if(!role.Members.Any())
                 {
                     result.Append(role.Name + Environment.NewLine);
+
                     await role.DeleteAsync();
                 }
             }
@@ -35,10 +36,8 @@ namespace ZBot.Modules
                 await ReplyAsync("No roles to delete");
                 return;
             }
-            
             await ReplyAsync(result.ToString());
         }
-
 
         [Command]
         [Summary("Removes specified group")]
@@ -50,7 +49,7 @@ namespace ZBot.Modules
            
             await role.DeleteAsync();
 
-            await ReplyAsync($"Deletes role {role.Name}");
+            await ReplyAsync($"Deleted role {role.Name}");
         }
     }
 }

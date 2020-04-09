@@ -44,7 +44,6 @@ namespace ZBot
             user = user ?? Context.User;
             
             await ReplyAsync("nope");
-
         }
     }
 }
