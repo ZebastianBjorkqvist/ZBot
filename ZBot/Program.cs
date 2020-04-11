@@ -1,11 +1,13 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using ZBot.Notifications;
 
 namespace ZBot
 {
@@ -18,6 +20,7 @@ namespace ZBot
 
             _services = new ServiceCollection()
                 .AddHttpClient()
+                .AddMediatR(Assembly.GetExecutingAssembly())
                 .AddScoped<RiotApiHandler>()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
@@ -36,7 +39,6 @@ namespace ZBot
             await _client.StartAsync();
 
             await Task.Delay(-1);
-
         }
 
         public static DiscordSocketClient _client;
@@ -52,7 +54,15 @@ namespace ZBot
         public static async Task RegisterCommandsAsync()
         {
             _client.MessageReceived += HandleCommandAsync;
+            _client.UserUpdated += HandleUserUpdateAsync;
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
+        }
+
+        private static async Task HandleUserUpdateAsync(SocketUser oldUser, SocketUser newUser)
+        {
+            await _services
+                .GetRequiredService<IMediator>()
+                .Publish(new UserUpdatedNotification(oldUser, newUser));
         }
 
         private static async Task HandleCommandAsync(SocketMessage arg)
