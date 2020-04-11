@@ -21,6 +21,7 @@ namespace ZBot.Modules
         }
 
         [Command]
+        [Summary("Helps")]
         public async Task Help()
         {
             EmbedBuilder embedBuilder = new EmbedBuilder()
@@ -42,6 +43,7 @@ namespace ZBot.Modules
         }
 
         [Command]
+        [Summary("Helps with specific command")]
         public async Task HelpSpecific(string command)
         {
             var result = _service.Search(Context, command);
