@@ -39,7 +39,7 @@ namespace ZBot
 
         }
 
-        private static DiscordSocketClient _client;
+        public static DiscordSocketClient _client;
         public static CommandService _commands;
         private static IServiceProvider _services;
 

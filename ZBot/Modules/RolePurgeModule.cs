@@ -17,7 +17,7 @@ namespace ZBot.Modules
         [Command]
         [Summary("Removes all roles that have no users")]
         [RequireUserPermission(GuildPermission.Administrator, Group = "Permission")]
-        public async Task PurgeClass()
+        public async Task PurgeRole()
         {
             var result = new StringBuilder();
             result.Append("Deleted roles: ");
@@ -42,7 +42,7 @@ namespace ZBot.Modules
         [Command]
         [Summary("Removes specified group")]
         [RequireUserPermission(GuildPermission.Administrator, Group = "Permission")]
-        public async Task PurgeClass(string roleName)
+        public async Task PurgeRole(string roleName)
         {
             var user = Context.User;
             var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == roleName);
