@@ -69,7 +69,6 @@ namespace ZBot.Modules
             });
 
             await (user as IGuildUser).AddRoleAsync(role);
-
             await ReplyAsync($"Gave {user.Username} the role {role.Name} with the color {role.Color.R},{role.Color.G},{role.Color.B}");
         }
     }

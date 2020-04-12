@@ -24,7 +24,6 @@ namespace ZBot
             };
 
             string token = File.ReadAllText(@"C:\Users\Zebbe\source\RiotToken.txt"); //Text file with my riot token
-
             request.Headers.Add("X-Riot-Token", token);
 
             return request;
@@ -33,11 +32,8 @@ namespace ZBot
         public async Task<T> ApiRequest<T>(string url)
         {
             var request = CreateRequestWithHeaders(url);
-            
             var client = _clientFactory.CreateClient();
-
             var response = await client.SendAsync(request);
-           
             string apiResponseString = await response.Content.ReadAsStringAsync();
            
             return JsonConvert.DeserializeObject<T>(apiResponseString);

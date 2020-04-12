@@ -26,14 +26,12 @@ namespace ZBot
             var channel = message.Channel;
             const string reply = ";; Is a music bot command. Please use the #music-bot channel";
 
-            
             if (message.Author.IsBot) return;
             
             //Makes sure that musicbot commands are removed if they arent in music-bot channel
             if (message.HasStringPrefix(";;", ref argPos) && message.Channel.Name != "music-bot")
             {
                 await message.DeleteAsync();
-
                 var previousMessages = await channel.GetMessagesAsync(3).FlattenAsync();
 
                 if (previousMessages.Any(x => x.Content != reply))

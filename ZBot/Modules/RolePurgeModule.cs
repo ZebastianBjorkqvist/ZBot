@@ -27,7 +27,6 @@ namespace ZBot.Modules
                 if(!role.Members.Any())
                 {
                     result.Append(role.Name + Environment.NewLine);
-
                     await role.DeleteAsync();
                 }
             }
