@@ -37,6 +37,17 @@ namespace ZBot
             await Context.Channel.SendFileAsync(stream, "cat.png");
         }
 
+        [Command("catgif")]
+        [Summary("Posts random gif of a cat")]
+        public async Task CatGifAsync()
+        {
+            // Get a stream containing an image of a cat
+            var stream = await PictureService.GetPictureAsync("https://cataas.com/cat/gif");
+            // Streams must be seeked to their beginning before being uploaded!
+            stream.Seek(0, SeekOrigin.Begin);
+            await Context.Channel.SendFileAsync(stream, "cat.png");
+        }
+
         [Command("test")]
         [Summary("nothing")]
         public async Task Test(IUser user = null)
