@@ -31,7 +31,7 @@ namespace ZBot
         public async Task CatAsync()
         {
             // Get a stream containing an image of a cat
-            var stream = await PictureService.GetCatPictureAsync();
+            var stream = await PictureService.GetPictureAsync("https://cataas.com/cat");
             // Streams must be seeked to their beginning before being uploaded!
             stream.Seek(0, SeekOrigin.Begin);
             await Context.Channel.SendFileAsync(stream, "cat.png");
