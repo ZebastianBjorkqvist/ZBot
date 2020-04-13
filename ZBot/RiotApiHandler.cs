@@ -24,9 +24,7 @@ namespace ZBot
                 RequestUri = new Uri(url)
             };
             
-            var riotToken = ConfigurationManager.AppSettings["RiotAPIKey"];
-
-            request.Headers.Add("X-Riot-Token", riotToken);
+            request.Headers.Add("X-Riot-Token", ConfigurationManager.AppSettings["RiotAPIKey"]);
 
             return request;
         }

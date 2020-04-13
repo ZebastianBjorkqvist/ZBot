@@ -24,15 +24,13 @@ namespace ZBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            var botToken = ConfigurationManager.AppSettings["BotApiKey"];
-
             _client.Log += Client_Log;
 
             await _client.SetGameAsync("Botting | !help");
 
             await RegisterCommandsAsync();
 
-            await _client.LoginAsync(TokenType.Bot, botToken);
+            await _client.LoginAsync(TokenType.Bot, ConfigurationManager.AppSettings["BotApiKey"]);
 
             await _client.StartAsync();
 
