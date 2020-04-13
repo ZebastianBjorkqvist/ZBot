@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,9 +23,10 @@ namespace ZBot
                 Method = HttpMethod.Get,
                 RequestUri = new Uri(url)
             };
+            
+            var riotToken = ConfigurationManager.AppSettings["RiotAPIKey"];
 
-            string token = File.ReadAllText(@"C:\Users\Zebbe\source\RiotToken.txt"); //Text file with my riot token
-            request.Headers.Add("X-Riot-Token", token);
+            request.Headers.Add("X-Riot-Token", riotToken);
 
             return request;
         }

@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace ZBot
 {
@@ -23,7 +24,7 @@ namespace ZBot
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
 
-            string token = File.ReadAllText(@"C:\Users\Zebbe\source\ZBotToken.txt");  //Text file with my discord token
+            var botToken = ConfigurationManager.AppSettings["BotApiKey"];
 
             _client.Log += Client_Log;
 
@@ -31,7 +32,7 @@ namespace ZBot
 
             await RegisterCommandsAsync();
 
-            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.LoginAsync(TokenType.Bot, botToken);
 
             await _client.StartAsync();
 
