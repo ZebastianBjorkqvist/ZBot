@@ -24,7 +24,7 @@ namespace ZBot.Modules
         [Summary("Helps")]
         public async Task Help()
         {
-            EmbedBuilder embedBuilder = new EmbedBuilder()
+            var embedBuilder = new EmbedBuilder()
             {
                 Color = new Color(114, 137, 218),
                 Description = "Here's a list of commands and their description"
