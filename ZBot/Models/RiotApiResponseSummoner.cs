@@ -1,15 +1,8 @@
-﻿using Discord.Commands;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Globalization;
-
 
 namespace ZBot.Modules
 {
-
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class RiotApiResponseSummoner
     {

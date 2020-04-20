@@ -3,7 +3,6 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Configuration;
@@ -16,26 +15,19 @@ namespace ZBot
         {
             _client = new DiscordSocketClient();
             _commands = new CommandService();
-
             _services = new ServiceCollection()
                 .AddHttpClient()
                 .AddScoped<RiotApiHandler>()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
-
             _client.Log += Client_Log;
 
             await _client.SetGameAsync("Botting | !help");
-
             await RegisterCommandsAsync();
-
             await _client.LoginAsync(TokenType.Bot, ConfigurationManager.AppSettings["BotApiKey"]);
-
             await _client.StartAsync();
-
             await Task.Delay(-1);
-
         }
 
         public static DiscordSocketClient _client;
