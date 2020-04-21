@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ZBot.Modules;
 
 namespace ZBot
 {
@@ -34,7 +35,7 @@ namespace ZBot
             var client = _clientFactory.CreateClient();
             var response = await client.SendAsync(request);
             string apiResponseString = await response.Content.ReadAsStringAsync();
-           
+
             return JsonConvert.DeserializeObject<T>(apiResponseString);
         }
     }

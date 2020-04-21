@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace ZBot
 {
-    class Program
+    public class Program
     {
         static async Task Main(string[] args)
         {
@@ -18,6 +18,7 @@ namespace ZBot
             _services = new ServiceCollection()
                 .AddHttpClient()
                 .AddScoped<RiotApiHandler>()
+                .AddScoped<RiotApiRequests>()
                 .AddSingleton(_client)
                 .AddSingleton(_commands)
                 .BuildServiceProvider();
