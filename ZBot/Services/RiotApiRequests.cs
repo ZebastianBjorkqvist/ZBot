@@ -25,7 +25,6 @@ namespace ZBot
         public async Task<T> GetSummonerRank<T>(string summonerName)
         {
             var summoner = await GetSummoner<RiotApiResponseSummoner>(summonerName);
-
             string urlRank = $"https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/{summoner.Id}"; //Url to get ranked information of summoner. It only accepts summoner id
 
             return await _apiHandler.ApiRequest<T>(urlRank);
