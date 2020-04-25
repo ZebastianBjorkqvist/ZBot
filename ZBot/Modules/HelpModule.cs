@@ -28,7 +28,7 @@ namespace ZBot.Modules
 
             foreach (CommandInfo command in _service.Commands)
             {
-                if (command.Name != "HelpSpecific" && command.Name != "CreateAndAssignRole")
+                if (command.Name != "HelpSpecific" && command.Name != "CreateAndAssignRole" && command.Name != "Hack")
                 {
                     string embedFieldText = command.Summary ?? "No description available\n";
                     embedBuilder.AddField(command.Name, embedFieldText);
