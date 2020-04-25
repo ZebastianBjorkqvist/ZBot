@@ -51,7 +51,14 @@ namespace ZBot.Modules
         public async Task Test(IUser user = null)
         {
             user = user ?? Context.User;
-            await ReplyAsync("nope");
+            await ReplyAsync($"no! {user.Mention}");
+        }
+
+        [Command("hack")]
+        [Summary("nothing")]
+        public async Task Hack()
+        {
+            await ReplyAsync("IM BEING HACKED");
         }
     }
 }
