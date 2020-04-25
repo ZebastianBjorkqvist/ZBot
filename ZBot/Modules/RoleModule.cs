@@ -10,7 +10,7 @@ namespace ZBot.Modules
     public class RoleModule : ModuleBase
     {
         [Command]
-        [Summary("Gives the user a role with specified name and color Light Grey")]
+        [Summary("Gives the user a role with specified name and color")]
         public async Task Role([Remainder]string roleName)
         {
             IGuild guild = Context.Guild;

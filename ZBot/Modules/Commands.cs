@@ -3,9 +3,10 @@ using Discord.Commands;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using ZBot;
 
-public class Commands : ModuleBase<SocketCommandContext>
+namespace ZBot.Modules
+{
+    public class Commands : ModuleBase<SocketCommandContext>
     {
         [Command("ping")]
         [Summary("Pings the bot")]
@@ -53,6 +54,4 @@ public class Commands : ModuleBase<SocketCommandContext>
             await ReplyAsync("nope");
         }
     }
-
-
-
+}

@@ -23,8 +23,19 @@ namespace ZBot
         {
             var summoner = await _apiRequest.GetSummoner<RiotApiResponseSummoner>(summonerName);
             var ranked = await _apiRequest.GetSummonerRank<RiotApiResponseRank[]>(summonerName);
+
+            var embedBuilder = new EmbedBuilder()
+            {
+                Color = new Color(114, 137, 218),
+                Description = $"{summoner.Name} is in a game and here's the info"
+            };
+
+
+            string embedFieldText = "";
             
-            await ReplyAsync($"Current activity ");
+            embedBuilder.AddField("test", embedFieldText);
+            
+            await ReplyAsync("", false, embedBuilder.Build());
         }
     }
  }
