@@ -33,7 +33,7 @@ namespace ZBot
         public async Task<T> GetMatch<T>(string summonerName)
         {
             var summoner = await GetSummoner<RiotApiResponseSummoner>(summonerName);
-            string urlRank = $"https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{summoner.Id}"; //Url to get ranked information of summoner. It only accepts summoner id
+            string urlRank = $"https://euw1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/{summoner.Id}"; //Url to get match. It only accepts summoner id
 
             return await _apiHandler.ApiRequest<T>(urlRank);
         }

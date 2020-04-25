@@ -3,6 +3,7 @@ using Discord.Commands;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Zbot.Models;
 using ZBot.Modules;
 using ZBot.Services;
 
@@ -23,7 +24,9 @@ namespace ZBot
         {
             var summoner = await _apiRequest.GetSummoner<RiotApiResponseSummoner>(summonerName);
             var ranked = await _apiRequest.GetSummonerRank<RiotApiResponseRank[]>(summonerName);
+            var match = await _apiRequest.GetMatch<LeagueMatch>(summonerName);
 
+            
             var embedBuilder = new EmbedBuilder()
             {
                 Color = new Color(114, 137, 218),
