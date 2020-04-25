@@ -60,5 +60,9 @@ namespace ZBot.Modules
         {
             await ReplyAsync("IM BEING HACKED");
         }
+
+        [Command("source")]
+        [Summary("Posts GitHub Link")]
+        public async Task Source() => await ReplyAsync("https://github.com/ZebastianBjorkqvist/ZBot/");
     }
 }
