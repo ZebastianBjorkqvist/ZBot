@@ -58,7 +58,7 @@ namespace ZBot.Modules
         [Summary("nothing")]
         public async Task Hack()
         {
-            await ReplyAsync("IM BEING HACKED. TEST");
+            await ReplyAsync("IM BEING HACKED.");
         }
 
         [Command("source")]
