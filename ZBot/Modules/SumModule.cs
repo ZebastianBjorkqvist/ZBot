@@ -9,12 +9,10 @@ namespace ZBot.Modules
     public class SumModule : ModuleBase
     {
         private readonly RiotApiRequests _apiRequest;
-        private RiotApiHandler _apiHandler;
 
-        public SumModule(RiotApiRequests apiRequest, RiotApiHandler apiHandler)
+        public SumModule(RiotApiRequests apiRequest)
         {
             _apiRequest = apiRequest;
-            _apiHandler = apiHandler;
         }
 
         [Command("sum")]
