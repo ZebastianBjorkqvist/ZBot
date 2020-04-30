@@ -21,6 +21,7 @@ namespace ZBot.Modules
                 {
                     await (Context.User as IGuildUser).AddRoleAsync(r);
                     await ReplyAsync($"Gave {Context.User.Username} the role {r.Name} with the color {r.Color.R},{r.Color.G},{r.Color.B}");
+                    return;
                 }
             }
 
@@ -43,6 +44,17 @@ namespace ZBot.Modules
         public async Task CreateAndAssignRole(string roleName, string roleColor)
         {
             IGuild guild = Context.Guild;
+
+            foreach (IRole r in guild.Roles)
+            {
+                if (r.Name == roleName)
+                {
+                    await (Context.User as IGuildUser).AddRoleAsync(r);
+                    await ReplyAsync($"Gave {Context.User.Username} the role {r.Name} with the color {r.Color.R},{r.Color.G},{r.Color.B}");
+                    return;
+                }
+            }
+
             var role = await guild.CreateRoleAsync(roleName);
 
             await role.ModifyAsync(x =>
@@ -63,6 +75,17 @@ namespace ZBot.Modules
         {
             IGuild guild = Context.Guild;
             var user = userName ?? Context.User;
+
+            foreach (IRole r in guild.Roles)
+            {
+                if (r.Name == roleName)
+                {
+                    await (Context.User as IGuildUser).AddRoleAsync(r);
+                    await ReplyAsync($"Gave {Context.User.Username} the role {r.Name} with the color {r.Color.R},{r.Color.G},{r.Color.B}");
+                    return;
+                }
+            }
+
             var role = await guild.CreateRoleAsync(roleName);
 
             await role.ModifyAsync(x =>
