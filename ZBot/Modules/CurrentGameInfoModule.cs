@@ -34,7 +34,7 @@ namespace ZBot
             };
 
 
-            string embedFieldText = "";
+            string embedFieldText = "test";
             
             embedBuilder.AddField("test", embedFieldText);
             

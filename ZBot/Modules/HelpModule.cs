@@ -62,7 +62,7 @@ namespace ZBot.Modules
                 builder.AddField(x =>
                 {
                     x.Name = string.Join(", ", cmd.Aliases);
-                    x.Value = $"Parameters: {string.Join(", ", cmd.Parameters.Select(p => p.Name))}\n" + $"Summary: {cmd.Summary}";
+                    x.Value = $"Parameters: {string.Join(", ", cmd.Parameters.Select(p => p.Name))}\nSummary: {cmd.Summary}";
                     x.IsInline = false;
                 });
             }

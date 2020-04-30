@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using static ZBot.Services.ColorConverterService;
+using static ZBot.Services.DiscordColorConverterService;
 
 namespace ZBot.Modules
 {
@@ -14,6 +14,16 @@ namespace ZBot.Modules
         public async Task Role([Remainder]string roleName)
         {
             IGuild guild = Context.Guild;
+
+            foreach(IRole r in guild.Roles)
+            {
+                if(r.Name == roleName)
+                {
+                    await (Context.User as IGuildUser).AddRoleAsync(r);
+                    await ReplyAsync($"Gave {Context.User.Username} the role {r.Name} with the color {r.Color.R},{r.Color.G},{r.Color.B}");
+                }
+            }
+
             var role = await guild.CreateRoleAsync(roleName);
 
             await role.ModifyAsync(x =>
@@ -29,16 +39,15 @@ namespace ZBot.Modules
         }
 
         [Command]
-        [Summary("Gives the user a role with specified name and specifed color in HEX(FFFFFF) or RGB(255,255,255)")]
+        [Summary("Gives the user a role with specified name and color with a name(white, blue...), HEX(#FFFFFF) or RGB(255,255,255)")]
         public async Task CreateAndAssignRole(string roleName, string roleColor)
         {
             IGuild guild = Context.Guild;
             var role = await guild.CreateRoleAsync(roleName);
-            int[] rgbResult = HexToRGB(roleColor);
 
             await role.ModifyAsync(x =>
             {
-                x.Color = new Color(rgbResult[0], rgbResult[1], rgbResult[2]);
+                x.Color = ColorService(roleColor);
                 x.Hoist = true;
                 x.Mentionable = true;
             });
@@ -49,17 +58,16 @@ namespace ZBot.Modules
         }
 
         [Command]
-        [Summary("Gives the user specified a role with specified name and specifed color in HEX(FFFFFF) or RGB(255,255,255)")]
+        [Summary("Gives the specified user a role with specified name and specifed color with a name(white, blue...), HEX(#FFFFFF) or RGB(255,255,255)")]
         public async Task CreateAndAssignRole(string roleName, IUser userName,  string roleColor)
         {
             IGuild guild = Context.Guild;
             var user = userName ?? Context.User;
             var role = await guild.CreateRoleAsync(roleName);
-            int[] rgbResult = HexToRGB(roleColor);
 
             await role.ModifyAsync(x =>
             {
-                x.Color = new Color(rgbResult[0], rgbResult[1], rgbResult[2]);
+                x.Color = ColorService(roleColor);
                 x.Hoist = true;
                 x.Mentionable = true;
             });
