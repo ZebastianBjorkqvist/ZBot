@@ -54,6 +54,8 @@ namespace ZBot.Modules
             if(user.Username == "Kobey")
             {
                 await ReplyAsync($"stopped  {user.Mention}");
+                return;
+
             }
             await ReplyAsync($"no! {user.Username} {user.Mention}");
         }
