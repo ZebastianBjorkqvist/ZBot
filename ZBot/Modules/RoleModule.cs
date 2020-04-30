@@ -11,7 +11,7 @@ namespace ZBot.Modules
     {
         [Command]
         [Summary("Gives the user a role with specified name and color")]
-        public async Task Role([Remainder]string roleName)
+        public async Task Role(string roleName)
         {
             IGuild guild = Context.Guild;
 
@@ -41,9 +41,8 @@ namespace ZBot.Modules
 
         [Command]
         [Summary("Gives the user a role with specified name and color with a name(white, blue...), HEX(#FFFFFF) or RGB(255,255,255)")]
-        public async Task CreateAndAssignRole(string roleName, [Remainder]string roleColor)
+        public async Task CreateAndAssignRole(string roleColor, [Remainder]string roleName)
         {
-            await ReplyAsync($"NAME:_ {roleName} COLOR: {roleColor}");
             IGuild guild = Context.Guild;
 
             foreach (IRole r in guild.Roles)
@@ -72,7 +71,7 @@ namespace ZBot.Modules
 
         [Command]
         [Summary("Gives the specified user a role with specified name and specifed color with a name(white, blue...), HEX(#FFFFFF) or RGB(255,255,255)")]
-        public async Task CreateAndAssignRole(string roleName, IUser userName, [Remainder]string roleColor)
+        public async Task CreateAndAssignRole(string roleColor, IUser userName, [Remainder]string roleName)
         {
             IGuild guild = Context.Guild;
             var user = userName ?? Context.User;
