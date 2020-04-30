@@ -51,11 +51,11 @@ namespace ZBot.Modules
         public async Task Test(IUser user = null)
         {
             user = user ?? Context.User;
-            if(user.Username == "Kobey")
+            if(user.Username == "Kobey#2093")
             {
                 await ReplyAsync($"stopped  {user.Mention}");
             }
-            await ReplyAsync($"no! {user.Mention}");
+            await ReplyAsync($"no!{user.Username} {user.Mention}");
         }
 
         [Command("hack")]
