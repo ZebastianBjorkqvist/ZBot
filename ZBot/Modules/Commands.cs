@@ -51,6 +51,10 @@ namespace ZBot.Modules
         public async Task Test(IUser user = null)
         {
             user = user ?? Context.User;
+            if(user.Username == "Kobeyy")
+            {
+                await ReplyAsync($"stopped  {user.Mention}");
+            }
             await ReplyAsync($"no! {user.Mention}");
         }
 
