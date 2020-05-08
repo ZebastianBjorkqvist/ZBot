@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using static ZBot.Services.DiscordColorConverterService;
+using ZBot.Services;
 
 namespace ZBot.Modules
 {
@@ -59,7 +59,7 @@ namespace ZBot.Modules
 
             await role.ModifyAsync(x =>
             {
-                x.Color = ColorService(roleColor);
+                x.Color = DiscordColorConverterService.ColorConverter(roleColor);
                 x.Hoist = true;
                 x.Mentionable = true;
             });
@@ -90,7 +90,7 @@ namespace ZBot.Modules
 
             await role.ModifyAsync(x =>
             {
-                x.Color = ColorService(roleColor);
+                x.Color = DiscordColorConverterService.ColorConverter(roleColor);
                 x.Hoist = true;
                 x.Mentionable = true;
             });

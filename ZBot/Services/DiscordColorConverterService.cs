@@ -9,7 +9,7 @@ namespace ZBot.Services
 {
     class DiscordColorConverterService
     {
-        public static Discord.Color ColorService(string colorString)
+        public static Discord.Color ColorConverter(string colorString)
         {
             //This allows users to write colors that are part of KnownColor Enum https://docs.microsoft.com/en-us/dotnet/api/system.drawing.knowncolor?view=netcore-3.1
             System.Drawing.Color sysColor = System.Drawing.Color.FromName(colorString);
@@ -20,6 +20,8 @@ namespace ZBot.Services
             }
 
             //This is for hex. Hex can start with # or be just six characters (eg. FFFFFF)
+
+            //This does not work for example if you type 1,1,10 as RGB its going to execute this if statement
             if (colorString.StartsWith("#") || colorString.Length == 6)
             {
                 System.Drawing.Color returnColor = System.Drawing.ColorTranslator.FromHtml(colorString);
