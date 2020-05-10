@@ -12,28 +12,25 @@ namespace ZBot.Services
         public static Discord.Color ColorConverter(string colorString)
         {
             //This allows users to write colors that are part of KnownColor Enum https://docs.microsoft.com/en-us/dotnet/api/system.drawing.knowncolor?view=netcore-3.1
-            System.Drawing.Color sysColor = System.Drawing.Color.FromName(colorString);
+            System.Drawing.Color systemColor = System.Drawing.Color.FromName(colorString);
 
-            if (sysColor.IsKnownColor)
+            if (systemColor.IsKnownColor)
             {
-                return new Discord.Color(sysColor.R, sysColor.G, sysColor.B);
+                return new Discord.Color(systemColor.R, systemColor.G, systemColor.B);
             }
 
             //This is for hex. Hex can start with # or be just six characters (eg. FFFFFF)
-
-            //This does not work for example if you type 1,1,10 as RGB its going to execute this if statement
-            if (colorString.StartsWith("#") || colorString.Length == 6)
+            if (uint.TryParse(colorString, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var color))
             {
-                System.Drawing.Color returnColor = System.Drawing.ColorTranslator.FromHtml(colorString);
-                return new Discord.Color(returnColor.R, returnColor.G, returnColor.B);
+                return new Discord.Color(color);
             }
 
-            //This is for rgb. It's possibly to input both with or without , as a separator
-            colorString = colorString.Replace(",", "");
+            //This is for rgb. 
+            var s = colorString.Split(",");
 
-            if((int.TryParse(colorString.Substring(0, 3), out int r) &&
-                int.TryParse(colorString.Substring(3, 3), out int g) &&
-                int.TryParse(colorString.Substring(6, 3), out int b)))
+            if ((int.TryParse(s[0], out int r) &&
+                int.TryParse(s[1], out int g) &&
+                int.TryParse(s[2], out int b)))
             {
                 return new Discord.Color(r, g, b);
             }
