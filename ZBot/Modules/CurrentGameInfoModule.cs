@@ -36,8 +36,9 @@ namespace ZBot
             embedBuilder.WithDescription($"{summoner.Name} is in a game and here's the info");
 
             
-            embedBuilder.AddField("test", match.GameMode);
-            
+            embedBuilder.AddField("Gamemode", match.GameMode);
+            embedBuilder.AddField("Participants", match.Participants);
+            embedBuilder.AddField("Length", match.GameLength);
 
             await ReplyAsync("", false, embedBuilder.Build());
         }
