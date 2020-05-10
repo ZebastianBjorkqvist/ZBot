@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using ZBot.Models;
 
 namespace Zbot.Models
 {
     public class LeagueMatch
     {
+        [JsonProperty("status")]
+        public Status Status { get; set; }
+
         [JsonProperty("gameId")]
         public long GameId { get; set; }
 

@@ -23,21 +23,22 @@ namespace ZBot
         public async Task ActiveGameInfo([Remainder] [Summary("Summoner name")] string summonerName)
         {
             var summoner = await _apiRequest.GetSummoner<RiotApiResponseSummoner>(summonerName);
-            var ranked = await _apiRequest.GetSummonerRank<RiotApiResponseRank[]>(summonerName);
             var match = await _apiRequest.GetMatch<LeagueMatch>(summonerName);
+            var embedBuilder = new EmbedBuilder()   {  Color = new Color(114, 137, 218) };
 
-            
-            var embedBuilder = new EmbedBuilder()
+            if (match.Status.Message == "404") //When you try to get a match of a summoner thats not in a game it returns 404
             {
-                Color = new Color(114, 137, 218),
-                Description = $"{summoner.Name} is in a game and here's the info"
-            };
+                embedBuilder.WithDescription($"{summoner.Name} is not in a game");
+                await ReplyAsync("", false, embedBuilder.Build());
+                return;
+            }
 
+            embedBuilder.WithDescription($"{summoner.Name} is in a game and here's the info");
 
-            string embedFieldText = "test";
             
-            embedBuilder.AddField("test", embedFieldText);
+            embedBuilder.AddField("test", match.GameMode);
             
+
             await ReplyAsync("", false, embedBuilder.Build());
         }
     }
