@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Zbot.Models;
@@ -39,8 +40,7 @@ namespace ZBot
             embedBuilder.AddField("Gamemode", match.GameMode);
             embedBuilder.AddField("Participants", match.Participants);
             embedBuilder.AddField("Length", match.GameLength);
-
-
+           
             await ReplyAsync("", false, embedBuilder.Build());
         }
     }
