@@ -23,27 +23,48 @@ namespace ZBot
         [Summary("Gets info on users current active league game")]
         public async Task ActiveGameInfo([Remainder] [Summary("Summoner name")] string summonerName)
         {
-            var summoner = await _apiRequest.GetSummoner<RiotApiResponseSummoner>(summonerName);
-            var match = await _apiRequest.GetMatch<LeagueMatch>(summonerName);
-            var embedBuilder = new EmbedBuilder()   {  Color = new Color(114, 137, 218) };
+            var summoner = await _apiRequest.GetSummoner(summonerName);
+            var match = await _apiRequest.GetMatch(summonerName);
 
-            if (match.Status.Message == "404") //When you try to get a match of a summoner thats not in a game it returns 404
+            //When you try to get a match of a summoner thats not in a game it returns 404
+            //And when you get a result status is null
+            if (match.Status?.Status_code == "404")
             {
-                embedBuilder.WithDescription($"{summoner.Name} is not in a game");
-                await ReplyAsync("", false, embedBuilder.Build());
+                await ReplyAsync($"{summoner.Name} is not in a game");
                 return;
             }
+          
+            var embedBuilder = new EmbedBuilder() {
+                Color = new Color(114, 137, 218),
+                Title = $"{summoner.Name} is in a game and here's the info"
+                
+            };
 
-            embedBuilder.WithDescription($"{summoner.Name} is in a game and here's the info");
-
-            
             embedBuilder.AddField("Gamemode", match.GameMode);
-            embedBuilder.AddField("Participants", match.Participants);
-            embedBuilder.AddField("Length", match.GameLength);
+
+
+            var team1 = " ";
+            var team2 = " ";
+            foreach (var p in match.Participants)
+            {
+                if (p.TeamId == 100)
+                    team1 += p.SummonerName + "\n";
+                else
+                    team2 += p.SummonerName + "\n";
+            }
+            embedBuilder.AddField("Blue team", team1, true);
+            embedBuilder.AddField("Red team", team2, true);
+
+
+            var gameStartTime = DateTimeOffset.FromUnixTimeMilliseconds(match.GameStartTime);
+            var gameTimeSpan = DateTime.Now - gameStartTime;
+            var mins = gameTimeSpan.Minutes + " min" + (gameTimeSpan.Minutes != 1 ? "s" : "");
+            var secs = gameTimeSpan.Seconds + " sec" + (gameTimeSpan.Seconds != 1 ? "s" : "");
+
+            embedBuilder.AddField("Length", $"{mins} and {secs}");
            
+
             await ReplyAsync("", false, embedBuilder.Build());
         }
     }
- }
-
-
+}

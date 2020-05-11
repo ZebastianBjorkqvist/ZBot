@@ -19,8 +19,8 @@ namespace ZBot.Modules
         [Summary("Gets summoner level and rank.")]
         public async Task GetSumLvlAndRank([Remainder] [Summary("Summoner name")] string summonerName)
         {
-            var summoner = await _apiRequest.GetSummoner<RiotApiResponseSummoner>(summonerName);
-            var ranked = await _apiRequest.GetSummonerRank<RiotApiResponseRank[]>(summonerName);
+            var summoner = await _apiRequest.GetSummoner(summonerName);
+            var ranked = await _apiRequest.GetSummonerRank(summonerName);
 
             /*Because tha api is random in wich ranked que json (Flex or Solo) is sent first
              * we need to find the one where queueType is solo. Noone cares about flex*/
