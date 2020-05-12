@@ -30,7 +30,7 @@ namespace ZBot.Modules
         public async Task CatAsync()
         {
             // Get a stream containing an image of a cat
-            var stream = await PictureService.GetPictureAsync("https://cataas.com/cat");
+            Stream stream = await PictureService.GetPictureAsync("https://cataas.com/cat");
             // Streams must be seeked to their beginning before being uploaded!
             stream.Seek(0, SeekOrigin.Begin);
             await Context.Channel.SendFileAsync(stream, "cat.png");
@@ -41,7 +41,7 @@ namespace ZBot.Modules
         public async Task CatGifAsync()
         {
             // Get a stream containing an image of a cat
-            var stream = await PictureService.GetPictureAsync("https://cataas.com/cat/gif");
+            Stream stream = await PictureService.GetPictureAsync("https://cataas.com/cat/gif");
             // Streams must be seeked to their beginning before being uploaded!
             stream.Seek(0, SeekOrigin.Begin);
             await Context.Channel.SendFileAsync(stream, "cat.gif");
@@ -79,11 +79,11 @@ namespace ZBot.Modules
             DateTime startup = Process.GetCurrentProcess().StartTime;
             TimeSpan uptime = DateTime.Now - startup;
 
-            var days = uptime.Days + " day" + (uptime.Days != 1 ? "s" : "") + ", ";
-            var hours = uptime.Hours + " hour" + (uptime.Hours != 1 ? "s" : "") + " and ";
+            var days = uptime.Days + " day" + (uptime.Days != 1 ? "s" : "");
+            var hours = uptime.Hours + " hour" + (uptime.Hours != 1 ? "s" : "");
             var mins = uptime.Minutes + " min" + (uptime.Minutes != 1 ? "s" : "");
             
-            await ReplyAsync($"The bot has been up for {days}{hours}{mins}");
+            await ReplyAsync($"The bot has been up for {days}, {hours} and {mins}");
         }
     }
 }

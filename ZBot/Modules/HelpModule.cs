@@ -30,7 +30,7 @@ namespace ZBot.Modules
             {
                 if (command.Name != "HelpSpecific" && command.Name != "CreateAndAssignRole" && command.Name != "Hack")
                 {
-                    string embedFieldText = command.Summary ?? "No description available\n";
+                    var embedFieldText = command.Summary ?? "No description available\n";
                     embedBuilder.AddField(command.Name, embedFieldText);
                 }
             }
@@ -41,7 +41,7 @@ namespace ZBot.Modules
         [Summary("Helps with specific command")]
         public async Task HelpSpecific(string command)
         {
-            var result = _service.Search(Context, command);
+            SearchResult result = _service.Search(Context, command);
 
             if (!result.IsSuccess)
             {
@@ -57,7 +57,7 @@ namespace ZBot.Modules
 
             foreach (var match in result.Commands)
             {
-                var cmd = match.Command;
+                CommandInfo cmd = match.Command;
 
                 builder.AddField(x =>
                 {

@@ -42,8 +42,8 @@ namespace ZBot.Modules
         [RequireUserPermission(GuildPermission.Administrator, Group = "Permission")]
         public async Task PurgeRole(string roleName)
         {
-            var user = Context.User;
-            var role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == roleName);
+            IUser user = Context.User;
+            IRole role = (user as IGuildUser).Guild.Roles.FirstOrDefault(x => x.Name == roleName);
            
             await role.DeleteAsync();
 

@@ -8,8 +8,8 @@ namespace ZBot
     {
         public static async Task<Stream> GetPictureAsync(string url)
         {
-            HttpClient http = new HttpClient();
-            var resp = await http.GetAsync(url);
+            var http = new HttpClient();
+            HttpResponseMessage resp = await http.GetAsync(url);
             return await resp.Content.ReadAsStreamAsync();
         }
     }

@@ -23,8 +23,8 @@ namespace ZBot
         [Summary("Gets info on users current active league game")]
         public async Task ActiveGameInfo([Remainder] [Summary("Summoner name")] string summonerName)
         {
-            var summoner = await _apiRequest.GetSummoner(summonerName);
-            var match = await _apiRequest.GetMatch(summonerName);
+            RiotApiResponseSummoner summoner = await _apiRequest.GetSummoner(summonerName);
+            LeagueMatch match = await _apiRequest.GetMatch(summonerName);
 
             if (match.Status?.Status_code == "404") //When you try to get a match of a summoner thats not in a game it returns 404
             {
@@ -58,12 +58,12 @@ namespace ZBot
             embedBuilder.AddField("Red team", team2, true);
 
 
-            var gameStartTime = DateTimeOffset.FromUnixTimeMilliseconds(match.GameStartTime);
-            var gameTimeSpan = DateTime.Now - gameStartTime;
-            var mins = gameTimeSpan.Minutes + " min" + (gameTimeSpan.Minutes != 1 ? "s" : "") + " and ";
+            DateTimeOffset gameStartTime = DateTimeOffset.FromUnixTimeMilliseconds(match.GameStartTime);
+            TimeSpan gameTimeSpan = DateTime.Now - gameStartTime;
+            var mins = gameTimeSpan.Minutes + " min" + (gameTimeSpan.Minutes != 1 ? "s" : "");
             var secs = gameTimeSpan.Seconds + " sec" + (gameTimeSpan.Seconds != 1 ? "s" : "");
 
-            embedBuilder.AddField("Length", $"{mins} {secs}");
+            embedBuilder.AddField("Length", $"{mins} and {secs}");
 
 
             await ReplyAsync("", false, embedBuilder.Build());

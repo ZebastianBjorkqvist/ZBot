@@ -15,7 +15,7 @@ namespace ZBot
 
         private async Task HandleMessage(SocketMessage arg)
         {
-            int argPos = 0;
+            var argPos = 0;
             var message = arg as SocketUserMessage;
             var channel = message.Channel;
             const string reply = ";; Is a music bot command. Please use the #music-bot channel";

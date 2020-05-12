@@ -25,7 +25,7 @@ namespace ZBot.Modules
                 }
             }
 
-            var role = await guild.CreateRoleAsync(roleName);
+            IRole role = await guild.CreateRoleAsync(roleName);
 
             await role.ModifyAsync(x =>
             {
@@ -55,7 +55,7 @@ namespace ZBot.Modules
                 }
             }
 
-            var role = await guild.CreateRoleAsync(roleName);
+            IRole role = await guild.CreateRoleAsync(roleName);
 
             await role.ModifyAsync(x =>
             {
@@ -74,7 +74,7 @@ namespace ZBot.Modules
         public async Task Role(string roleColor, IUser userName, [Remainder]string roleName)
         {
             IGuild guild = Context.Guild;
-            var user = userName ?? Context.User;
+            IUser user = userName ?? Context.User;
 
             foreach (IRole r in guild.Roles)
             {
@@ -86,7 +86,7 @@ namespace ZBot.Modules
                 }
             }
 
-            var role = await guild.CreateRoleAsync(roleName);
+            IRole role = await guild.CreateRoleAsync(roleName);
 
             await role.ModifyAsync(x =>
             {

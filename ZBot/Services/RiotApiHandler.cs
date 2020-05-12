@@ -31,9 +31,9 @@ namespace ZBot
 
         public async Task<T> ApiRequest<T>(string url)
         {
-            var request = CreateRequestWithHeaders(url);
-            var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
+            HttpRequestMessage request = CreateRequestWithHeaders(url);
+            HttpClient client = _clientFactory.CreateClient();
+            HttpResponseMessage response = await client.SendAsync(request);
             string apiResponseString = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<T>(apiResponseString);
