@@ -8,10 +8,10 @@ using ZBot.Models;
 
 namespace Zbot.Models
 {
-    public class LeagueMatch
+    public class LeagueMatchModel
     {
         [JsonProperty("status")]
-        public Status Status { get; set; }
+        public StatusModel Status { get; set; }
 
         [JsonProperty("gameId")]
         public long GameId { get; set; }
@@ -29,16 +29,16 @@ namespace Zbot.Models
         public long GameQueueConfigId { get; set; }
 
         [JsonProperty("participants")]
-        public Participant[] Participants { get; set; }
+        public ParticipantModel[] Participants { get; set; }
 
         [JsonProperty("observers")]
-        public Observers Observers { get; set; }
+        public ObserversModel Observers { get; set; }
 
         [JsonProperty("platformId")]
         public string PlatformId { get; set; }
 
         [JsonProperty("bannedChampions")]
-        public BannedChampion[] BannedChampions { get; set; }
+        public BannedChampionModel[] BannedChampions { get; set; }
 
         [JsonProperty("gameStartTime")]
         public long GameStartTime { get; set; }

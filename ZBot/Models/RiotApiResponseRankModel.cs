@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 namespace ZBot.Modules
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class RiotApiResponseRank
+    public class RiotApiResponseRankModel
     {
         public string QueueType { get; set; }
         public string SummonerName { get; set; }

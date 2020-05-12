@@ -23,8 +23,8 @@ namespace ZBot
         [Summary("Gets info on users current active league game")]
         public async Task ActiveGameInfo([Remainder] [Summary("Summoner name")] string summonerName)
         {
-            RiotApiResponseSummoner summoner = await _apiRequest.GetSummoner(summonerName);
-            LeagueMatch match = await _apiRequest.GetMatch(summonerName);
+            RiotApiResponseSummonerModel summoner = await _apiRequest.GetSummoner(summonerName);
+            LeagueMatchModel match = await _apiRequest.GetMatch(summonerName);
 
             if (match.Status?.Status_code == "404") //When you try to get a match of a summoner thats not in a game it returns 404
             {

@@ -2,7 +2,7 @@
 
 namespace Zbot.Models
 {
-    public class Perks
+    public class PerksModel
     {
         [JsonProperty("perkIds")]
         public long[] PerkIds { get; set; }

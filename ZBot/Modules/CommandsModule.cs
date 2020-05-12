@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZBot.Modules
 {
-    public class Commands : ModuleBase<SocketCommandContext>
+    public class CommandsModule : ModuleBase<SocketCommandContext>
     {
         [Command("ping")]
         [Summary("Pings the bot")]

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 namespace ZBot.Modules
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class RiotApiResponseSummoner
+    public class RiotApiResponseSummonerModel
     {
         public int ProfileIconId { get; set; }
         public string Name { get; set; }

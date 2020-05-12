@@ -2,7 +2,7 @@
 
 namespace Zbot.Models
 {
-    public class Participant
+    public class ParticipantModel
     {
         [JsonProperty("teamId")]
         public long TeamId { get; set; }
@@ -32,6 +32,6 @@ namespace Zbot.Models
         public object[] GameCustomizationObjects { get; set; }
 
         [JsonProperty("perks")]
-        public Perks Perks { get; set; }
+        public PerksModel Perks { get; set; }
     }
 }

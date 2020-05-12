@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZBot.Models
 {
-    public class Status
+    public class StatusModel
     {
         [JsonProperty("status_code")]
         public string Status_code { get; set; }

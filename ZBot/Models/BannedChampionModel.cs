@@ -2,7 +2,7 @@
 
 namespace Zbot.Models
 {
-    public class BannedChampion
+    public class BannedChampionModel
     {
         [JsonProperty("championId")]
         public long ChampionId { get; set; }

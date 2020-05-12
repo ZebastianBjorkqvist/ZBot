@@ -2,7 +2,7 @@
 
 namespace Zbot.Models
 {
-    public class Observers
+    public class ObserversModel
     {
         [JsonProperty("encryptionKey")]
         public string EncryptionKey { get; set; }
