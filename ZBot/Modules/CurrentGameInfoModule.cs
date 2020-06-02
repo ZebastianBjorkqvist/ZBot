@@ -1,17 +1,24 @@
 ﻿using Discord;
 using Discord.Commands;
 using System;
-using System.Diagnostics;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Zbot.Models;
 using ZBot.Modules;
-using ZBot.Services;
 
 namespace ZBot
 {
     public class CurrentGameInfoModule : ModuleBase
     {
+        //There is about 15 gamemodes most were temprorary but this dict allows the bot to handle all of them.
+        //I Have predefined the most common
+        private readonly Dictionary<string, string> _gamemodeMap = new Dictionary<string, string>
+        {
+            { "CLASSIC", "Classic Summoner's Rift" },
+            { "ARAM", "ARAM" },
+        };
+
         private readonly RiotApiRequests _apiRequest;
 
         public CurrentGameInfoModule(RiotApiRequests apiRequest)
@@ -31,16 +38,22 @@ namespace ZBot
                 await ReplyAsync($"{summoner.Name} is not in a game");
                 return;
             }
-  
 
             var embedBuilder = new EmbedBuilder()
             {
                 Color = new Color(114, 137, 218),
                 Title = $"{summoner.Name} is in a game and here's the info"
-
             };
 
-            embedBuilder.AddField("Gamemode", match.GameMode);
+
+            if(!_gamemodeMap.ContainsKey(match.GameMode))
+            {
+                string titleCase = char.ToUpper(match.GameMode[0]) + match.GameMode.Substring(1).ToLower();
+                _gamemodeMap.Add(match.GameMode, titleCase);
+                Console.WriteLine($"Added {match.GameMode} to dict -> {titleCase}");
+            }
+
+            embedBuilder.AddField("Gamemode", _gamemodeMap[match.GameMode]);
 
 
             var team1 = " ";
@@ -57,7 +70,6 @@ namespace ZBot
             embedBuilder.AddField("Blue team", team1, true);
             embedBuilder.AddField("Red team", team2, true);
 
-
             DateTimeOffset gameStartTime = DateTimeOffset.FromUnixTimeMilliseconds(match.GameStartTime);
             TimeSpan gameTimeSpan = DateTime.Now - gameStartTime;
             var mins = gameTimeSpan.Minutes + " min" + (gameTimeSpan.Minutes != 1 ? "s" : "");
@@ -65,9 +77,7 @@ namespace ZBot
 
             embedBuilder.AddField("Length", $"{mins} and {secs}");
 
-
             await ReplyAsync("", false, embedBuilder.Build());
-
         }
     }
 }
