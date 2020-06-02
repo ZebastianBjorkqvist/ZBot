@@ -11,7 +11,7 @@ namespace ZBot
 {
     public class CurrentGameInfoModule : ModuleBase
     {
-        //There is about 15 gamemodes most were temprorary but this dict allows the bot to handle all of them.
+        //There is about 15 gamemodes most were temprorary but this Dictionary allows the bot to handle all of them.
         //I Have predefined the most common
         private readonly Dictionary<string, string> _gamemodeMap = new Dictionary<string, string>
         {
