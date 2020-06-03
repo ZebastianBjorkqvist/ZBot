@@ -10,23 +10,39 @@ namespace ZBot.Modules
 {
     public class LeagueRankSubscribeModule : ModuleBase
     {
+        private readonly RiotApiRequests _apiRequest;
+
+        public LeagueRankSubscribeModule(RiotApiRequests apiRequest)
+        {
+            _apiRequest = apiRequest;
+
+        }
+
         [Command("leaguerankedsub")]
         [Summary("Subscribes League summoner to the league-ranks channel.")]
         public async Task LeagueRankedSub([Remainder] [Summary("Summoner name")] string summonerName)
         {
+
+            RiotApiResponseSummonerModel summoner = await _apiRequest.GetSummoner(summonerName);
+            if(summoner.Name == null)
+            {
+                await ReplyAsync(summonerName + " is not a summonername");
+                return;
+            }
+
             //using statement disposes of the database when its finished
             using (var db = new SummonerContext())
             {
                 //Check if it exists
                 if (db.SummonerModels.Any(s => s.SummonerName == summonerName))
                 {
-                    await ReplyAsync(summonerName + "is already subscribed");
+                    await ReplyAsync(summonerName + " is already subscribed");
                 }
                 else
                 {
                     db.SummonerModels.Add(new SummonerModel { SummonerName = summonerName });
                     db.SaveChanges();
-                    await ReplyAsync(summonerName + "is now subscribed");
+                    await ReplyAsync(summonerName + " is now subscribed");
                 }
             }
         }
