@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 
 namespace ZBot.DbModels
@@ -11,6 +12,6 @@ namespace ZBot.DbModels
         public DbSet<RankHistoryModel> RankHistoryModels { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=summoners.db").EnableDetailedErrors();//Connection string should be hidden
+            => options.UseSqlite(ConfigurationManager.AppSettings["DbConnectionString"]).EnableDetailedErrors();//Connection string should be hidden
     }
 }
