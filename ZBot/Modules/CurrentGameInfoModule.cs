@@ -13,6 +13,7 @@ namespace ZBot
     {
         //There is about 15 gamemodes most were temprorary but this Dictionary allows the bot to handle all of them.
         //I Have predefined the most common
+        //TODO: It will almost never save any new data since it resets at reboot and it maybe resets each time you run the command
         private readonly Dictionary<string, string> _gamemodeMap = new Dictionary<string, string>
         {
             { "CLASSIC", "Classic Summoner's Rift" },
